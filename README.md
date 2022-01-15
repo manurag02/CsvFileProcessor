@@ -1,7 +1,7 @@
 # CsvFileProcessor
 Please use attached Postman collection for testing the api.\
 Please use mvn clean install to after cloning the project and mvn spring-boot:run to run the application.\
-Documentation can be found at `http://localhost:8080/csvfileprocessor/swagger-ui/index.html#/`.\
+Documentation can be found at `http://localhost:8080/csvfileprocessor/swagger-ui/index.html#/`.
 
 Parts that could have been done when given sufficient time :-
 1. TDD approach 
