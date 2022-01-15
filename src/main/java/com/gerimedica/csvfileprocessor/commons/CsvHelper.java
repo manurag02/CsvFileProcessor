@@ -8,6 +8,8 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -45,8 +47,8 @@ public class CsvHelper {
                         csvRecord.get("code"),
                         csvRecord.get("displayValue"),
                         csvRecord.get("longDescription"),
-                        LocalDate.parse(csvRecord.get("fromDate")),
-                        (csvRecord.get("toDate")==""?LocalDate.now(): LocalDate.parse(csvRecord.get("toDate"))),
+                        csvRecord.get("fromDate"),
+                        csvRecord.get("toDate"),
                         csvRecord.get("sortingPriority")
 
 

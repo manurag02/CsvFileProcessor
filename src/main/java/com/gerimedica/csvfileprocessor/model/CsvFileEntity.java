@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Table(name = "csv_file_table")
@@ -33,9 +34,9 @@ public class CsvFileEntity implements Serializable {
 
     private String longDescription;
 
-    private LocalDate fromDate;
+    private String  fromDate;
 
-    private LocalDate toDate;
+    private String toDate;
 
     private String sortingPriority;
 
