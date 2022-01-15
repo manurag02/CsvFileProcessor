@@ -9,3 +9,5 @@ Parts that could have been done when given sufficient time :-
 3. Logging
 4. Better Exception handling as I have used basic classes
 5. Dockerization of the application 
+
+Note: I have committed to this code base after the Deadline as well as I found the task interesting. Please take the commit of 15th Jan for reference. Thank you.
