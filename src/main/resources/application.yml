@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: '@project.artifactId@'
+  datasource:
+    url: jdbc:h2:mem:testDb
+    username: admin
+    password: admin
+    driver-class-name: org.h2.Driver
+  jpa:
+    properties:
+      hibernate:
+        show_sql: true
+        use_sql_comments: true
+        format_sql: true
+    defer-datasource-initialization: true
+  h2:
+    console:
+      enabled: true
+      path: /console
+      settings:
+        trace: false
+        web-allow-others: false
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+
+server:
+  servlet:
+    context-path: /csvfileprocessor
