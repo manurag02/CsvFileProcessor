@@ -5,7 +5,6 @@ import com.gerimedica.csvfileprocessor.commons.CsvHelper;
 import com.gerimedica.csvfileprocessor.model.CsvFileEntity;
 import com.gerimedica.csvfileprocessor.repository.CsvRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -36,19 +35,19 @@ public class CsvFileServiceImpl implements CsvFileService {
         }
     }
 
-    private InputStreamResource loadCsvFile(List<CsvFileEntity> csvFileEntityList) {
-        InputStreamResource csvFile = new InputStreamResource(CsvHelper.csvFileEntityToCsvFile(csvFileEntityList));
+    private byte[] loadCsvFile(List<CsvFileEntity> csvFileEntityList) {
+        var csvFile = CsvHelper.csvFileEntityToCsvFile(csvFileEntityList);
         return csvFile;
     }
 
     @Override
-    public InputStreamResource getAllRecords() {
+    public byte[] getAllRecords() {
         var csyFileEntityList = StreamSupport.stream(csvRepository.findAll().spliterator(),false).collect(Collectors.toList());
         return loadCsvFile(csyFileEntityList);
     }
 
     @Override
-    public InputStreamResource getAllRecordsByCode(String code)
+    public byte[] getAllRecordsByCode(String code)
     {
         var csyFileEntityList = StreamSupport.stream(csvRepository.getAllRecordsByCode(code).spliterator(),false).collect(Collectors.toList());
         return loadCsvFile(csyFileEntityList);

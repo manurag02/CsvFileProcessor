@@ -1,28 +1,14 @@
 package com.gerimedica.csvfileprocessor.commons;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import com.gerimedica.csvfileprocessor.model.CsvFileEntity;
+import lombok.experimental.UtilityClass;
+import org.apache.commons.csv.*;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-import com.gerimedica.csvfileprocessor.model.CsvFileEntity;
-import lombok.experimental.UtilityClass;
-import org.apache.commons.csv.CSVFormat;
-import org.apache.commons.csv.CSVParser;
-import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.csv.CSVRecord;
-import org.apache.commons.csv.QuoteMode;
-import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 @UtilityClass
 public class CsvHelper {
@@ -63,7 +49,7 @@ public class CsvHelper {
         }
     }
 
-    public static ByteArrayInputStream csvFileEntityToCsvFile(List<CsvFileEntity> csvFileEntityList) {
+    public static byte[] csvFileEntityToCsvFile(List<CsvFileEntity> csvFileEntityList) {
         final CSVFormat format = CSVFormat.DEFAULT.withQuoteMode(QuoteMode.MINIMAL);
 
         try (ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -86,7 +72,7 @@ public class CsvHelper {
             }
 
             csvPrinter.flush();
-            return new ByteArrayInputStream(out.toByteArray());
+            return out.toByteArray();
         } catch (IOException e) {
             throw new RuntimeException("Importing data to CSV file failed : " + e.getMessage());
         }

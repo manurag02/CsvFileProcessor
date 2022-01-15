@@ -3,21 +3,15 @@ package com.gerimedica.csvfileprocessor.controller;
 import com.gerimedica.csvfileprocessor.api.CsvFileService;
 import com.gerimedica.csvfileprocessor.commons.CsvHelper;
 import com.gerimedica.csvfileprocessor.dto.ResponseMessage;
-import com.gerimedica.csvfileprocessor.model.CsvFileEntity;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/api/v1/csvFileProcessor")
+@RequestMapping("/api/v1/")
 public class CsvFileController {
 
     private CsvFileService csvFileServiceImpl;
@@ -38,8 +32,7 @@ public class CsvFileController {
                 message = "Uploaded the file successfully: " + file.getOriginalFilename();
 
                 String fileDownloadUri = ServletUriComponentsBuilder.fromCurrentContextPath()
-                        .path("/api/csvFileProcessor/download/")
-                        .path(file.getOriginalFilename())
+                        .path("/api/v1/records/")
                         .toUriString();
 
                 return ResponseEntity.status(HttpStatus.OK).body(new ResponseMessage(message,fileDownloadUri));
@@ -53,41 +46,28 @@ public class CsvFileController {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseMessage(message,""));
     }
 
-    @GetMapping("/records")
-    public ResponseEntity<Resource> getAllRecords() {
-        try {
-            var csvRecordFile = csvFileServiceImpl.getAllRecords();
 
-      if (csvRecordFile.contentLength() <= 0) {
-                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-            }
-
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + "GeriMedica")
-                    .contentType(MediaType.parseMediaType("application/csv"))
-                    .body(csvRecordFile);
-        } catch (Exception e) {
-            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+    @GetMapping(value = "/records" , produces="application/vnd.ms-excel")
+    public ResponseEntity<Object> getAllRecords() {
+        String filename = "allData.xlsx";
+        byte[] bytes = csvFileServiceImpl.getAllRecords();
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/vnd.ms-excel;");
+        headers.setContentDispositionFormData(filename, filename);
+        return new ResponseEntity<Object>(bytes, headers, HttpStatus.OK);
     }
 
-    @GetMapping("/records/{code}/code")
-    public ResponseEntity<Resource> getAllRecordsByCode(@PathVariable String code) {
-        try {
-        var csvRecordFile = csvFileServiceImpl.getAllRecordsByCode(code);
 
-        if (csvRecordFile.contentLength() <= 0) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
+    @GetMapping(value = "/records/{code}/code" , produces="application/vnd.ms-excel")
+    public ResponseEntity<Object> getAllRecordsByCode(@PathVariable String code) {
+        String filename = "allDataByCode.xlsx";
+        byte[] bytes = csvFileServiceImpl.getAllRecordsByCode(code);
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Content-Type", "application/vnd.ms-excel;");
+        headers.setContentDispositionFormData(filename, filename);
+        return new ResponseEntity<Object>(bytes, headers, HttpStatus.OK);
+    }
 
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + code)
-                .contentType(MediaType.parseMediaType("application/csv"))
-                .body(csvRecordFile);
-    } catch (Exception e) {
-        return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-    }
 
     @DeleteMapping("/records")
     public ResponseEntity<String> deleteAllData()
