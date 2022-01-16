@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "bcfad4dd-a4ae-4dc0-b79b-c6af4d22837d",
+		"name": "CsvFileProcessor",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Upload Data",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {}
+			},
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/manur/Downloads/exercise (1).csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "localhost:8080/csvfileprocessor/api/v1/records",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"csvfileprocessor",
+						"api",
+						"v1",
+						"records"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All records",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/csvfileprocessor/api/v1/records",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"csvfileprocessor",
+						"api",
+						"v1",
+						"records"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All records by Code",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/csvfileprocessor/api/v1/records/271636001/code",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"csvfileprocessor",
+						"api",
+						"v1",
+						"records",
+						"271636001",
+						"code"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/csvfileprocessor/api/v1/records/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/csvfileprocessor/api/v1/records/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"csvfileprocessor",
+						"api",
+						"v1",
+						"records",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/csvfileprocessor/api/csvFileProcessor/records/exercise%20(1).csv",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/csvfileprocessor/api/csvFileProcessor/records/exercise%20(1).csv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"csvfileprocessor",
+						"api",
+						"csvFileProcessor",
+						"records",
+						"exercise%20(1).csv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/csvfileprocessor/api/csvFileProcessor/download/exercise%20(1).csv",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/csvfileprocessor/api/csvFileProcessor/download/exercise%20(1).csv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"csvfileprocessor",
+						"api",
+						"csvFileProcessor",
+						"download",
+						"exercise%20(1).csv"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
